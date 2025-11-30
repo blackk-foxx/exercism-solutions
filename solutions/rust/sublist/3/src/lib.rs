@@ -1,0 +1,37 @@
+#[derive(Debug, PartialEq, Eq)]
+pub enum Comparison {
+    Equal,
+    Sublist,
+    Superlist,
+    Unequal,
+}
+
+pub fn sublist(first_list: &[i32], second_list: &[i32]) -> Comparison {
+    if first_list == second_list {
+        Comparison::Equal
+    }
+    else if is_sublist(first_list, second_list) {
+        Comparison::Sublist
+    }
+    else if is_sublist(second_list, first_list) {
+        Comparison::Superlist
+    }
+    else {
+        Comparison::Unequal
+    }
+}
+
+pub fn is_sublist(a: &[i32], b: &[i32]) -> bool {
+    if a.len() > b.len() {
+        return false;
+    }
+    if a.is_empty() {
+        return true;
+    }
+    for i in 0..(1 + b.len() - a.len()) {
+        if a[..] == b[i..(i + a.len())] {
+            return true;
+        }
+    }
+    false
+}
