@@ -1,0 +1,17 @@
+find(List, Value, Index) :-
+    length(List, Length),
+    Length > 0,
+    find_in_range(0, Length, List, Value, Index).
+
+find_in_range(Low, High, List, Value, Index) :-
+    Low < High,
+    Mid is (Low + High) // 2,
+    nth0(Mid, List, ValueAtMid),
+    (
+        Value == ValueAtMid -> Index is Mid;
+        Value < ValueAtMid ->
+            find_in_range(Low, Mid, List, Value, Index);
+        NextMid is Mid + 1,
+        find_in_range(NextMid, High, List, Value, Index)
+    ).
+        
